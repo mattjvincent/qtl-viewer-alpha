@@ -25,59 +25,81 @@ path {
 }
 
 /* background of plot, and border */
-#plotMatrixSVG .plot { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: crispEdges; }
+#plotMatrixSVG .plot { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: auto; }
 /* chromsome names on x axis*/
 #plotMatrixSVG .x-axis { font-family: 'Ubuntu', sans-serif; font-size: 12px; fill:black; font-weight:bold; }
 /* axis end lines  */
-#plotMatrixSVG .x-axis path { fill: none; stroke: none; shape-rendering: crispEdges; }
+#plotMatrixSVG .x-axis path { fill: none; stroke: none; shape-rendering: auto; }
 /* axis tick marks */
-#plotMatrixSVG .x-axis line { fill: none; stroke: black; shape-rendering: crispEdges; }
+#plotMatrixSVG .x-axis line { fill: none; stroke: black; shape-rendering: auto; }
 /* x axis title */
 #plotMatrixSVG .x-axis-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill:black; font-weight:bold; }
 /* chromosome pseudo tick lines (shows chromosome boundaries)*/
-#plotMatrixSVG .x-grid .tick { stroke: rgb(150,150,150); stroke-width: 1; shape-rendering: crispEdges; }
+#plotMatrixSVG .x-grid .tick { stroke: rgb(150,150,150); stroke-width: 1; shape-rendering: auto; }
 /* chromsome names on y axis*/
 #plotMatrixSVG .y-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill:black; font-weight:bold; }
 /* axis end lines  */
-#plotMatrixSVG .y-axis path { fill: none; stroke: none; shape-rendering: crispEdges; }
+#plotMatrixSVG .y-axis path { fill: none; stroke: none; shape-rendering: auto; }
 /* axis tick marks */
-#plotMatrixSVG .y-axis line { fill: none; stroke: black; shape-rendering: crispEdges; }
+#plotMatrixSVG .y-axis line { fill: none; stroke: black; shape-rendering: auto; }
 /* x axis title */
 #plotMatrixSVG .y-axis-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill:black; font-weight:bold; }
 /* chromosome pseudo tick lines (shows chromosome boundaries)*/
-#plotMatrixSVG .y-grid .tick { stroke: rgb(150,150,150); stroke-width: 1; shape-rendering: crispEdges; }
+#plotMatrixSVG .y-grid .tick { stroke: rgb(150,150,150); stroke-width: 1; shape-rendering: auto; }
 /* circles */
-#plotMatrixSVG .dot { pointer-events:all; shape-rendering: crispEdges; }
+/*
+#plotMatrixSVG .dot { pointer-events:all; shape-rendering: auto; }
+*/
 #plotMatrixSVG .highlight { fill: red; }
+/*
+#plotMatrixSVG {pointer-events:none}
+*/
+
+
+#plotMatrixSVG .progress-meter .background {
+shape-rendering: auto;  fill: #ddd;
+}
+
+#plotMatrixSVG .progress-meter .foreground {
+shape-rendering: auto;  fill: rgb(107, 149, 62);
+}
+
+#plotMatrixSVG .progress-meter text {
+shape-rendering: auto;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 
 
 #plotLODSVG { background-color:white; }
-#plotLODSVG .plot { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: crispEdges; }
+#plotLODSVG .plot { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: auto; }
 #plotLODSVG .x-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill: black; font-weight:bold; }
 #plotLODSVG .x-axis-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill: black; font-weight:bold; }
-#plotLODSVG .x-axis line { fill: none; stroke: black; shape-rendering: crispEdges; }
-#plotLODSVG .x.axis path { fill: none; stroke: none; shape-rendering: crispEdges; }
+#plotLODSVG .x-axis line { fill: none; stroke: black; shape-rendering: auto; }
+#plotLODSVG .x.axis path { fill: none; stroke: none; shape-rendering: auto; }
 #plotLODSVG .y-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill:black; font-weight:bold; }
-#plotLODSVG .y-axis line { fill: none; stroke: white; shape-rendering: crispEdges; }
-#plotLODSVG .y-axis path { fill: none; stroke: none; shape-rendering: crispEdges; }
+#plotLODSVG .y-axis line { fill: none; stroke: white; shape-rendering: auto; }
+#plotLODSVG .y-axis path { fill: none; stroke: none; shape-rendering: auto; }
 #plotLODSVG .y-axis-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill:black; font-weight:bold; }
-#plotLODSVG .checkerboard1 { fill:rgb(200, 200, 200); stroke-width: 1; shape-rendering: crispEdges; }
-#plotLODSVG .checkerboard2 { fill:rgb(230, 230, 230); stroke-width: 1; shape-rendering: crispEdges; }
+#plotLODSVG .checkerboard1 { fill:rgb(200, 200, 200); stroke-width: 1; shape-rendering: auto; }
+#plotLODSVG .checkerboard2 { fill:rgb(230, 230, 230); stroke-width: 1; shape-rendering: auto; }
 #plotLODSVG .plotlod-circle { pointer-events:all;}
 
 
 #plotEffectSVG { background-color:white; }
-#plotEffectSVG .plot { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: crispEdges; }
+#plotEffectSVG .plot { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: auto; }
 #plotEffectSVG .x-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill: black; font-weight:bold; }
 #plotEffectSVG .x-axis-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill: black; font-weight:bold; }
-#plotEffectSVG .x-axis line { fill: none; stroke: lightgray; shape-rendering: crispEdges; }
-#plotEffectSVG .x-axis path { fill: none; stroke: black; stroke-width: 1;  shape-rendering: crispEdges; } /* bottom line*/
+#plotEffectSVG .x-axis line { fill: none; stroke: lightgray; shape-rendering: auto; }
+#plotEffectSVG .x-axis path { fill: none; stroke: black; stroke-width: 1;  shape-rendering: auto; } /* bottom line*/
 #plotEffectSVG .y-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill:black; font-weight:bold; }
-#plotEffectSVG .y-axis line { fill: none; stroke: lightgray; shape-rendering: crispEdges; }
-#plotEffectSVG .y-axis path { fill: none; stroke: black; shape-rendering: crispEdges; }
+#plotEffectSVG .y-axis line { fill: none; stroke: lightgray; shape-rendering: auto; }
+#plotEffectSVG .y-axis path { fill: none; stroke: black; shape-rendering: auto; }
 #plotEffectSVG .y-axis-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill:black; font-weight:bold; }
-#plotEffectSVG .legend { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: crispEdges; }
-#plotEffectSVG .legend-text { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill:black; font-weight:bold; }
+#plotEffectSVG .legend { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: auto; }
+#plotEffectSVG .legend-text { font-family: 'Ubuntu', sans-serif; font-size: 9px; fill:black; font-weight:bold; }
 #plotEffectSVG .strains-line {
     fill: none;
 }
@@ -344,7 +366,7 @@ div.popover.my-custom-class{
             }
 
 #fact-svg-chart            .axis line, .axis path {
-                shape-rendering: crispEdges;
+                shape-rendering: auto;
                 stroke: black;
                 fill: none;
             }
@@ -385,15 +407,25 @@ div.popover.my-custom-class{
 
 #fact-svg-chart            .whiskers {
                 stroke: black;
+	            stroke-width: 1px;
+            }
+
+#fact-svg-chart            .circle-data-point {
+                fill:whitesmoke;
+	            stroke: steelblue;
+	              stroke-width: 1px;
+	              r: 2px;
+	shape-rendering: auto;
+
             }
 
 #fact-svg-chart .x-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill: black; font-weight:bold; }
 #fact-svg-chart .x-axis-label { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill: black; font-weight:bold; }
-#fact-svg-chart .x-axis line { fill: none; stroke: black; shape-rendering: crispEdges; }
-#fact-svg-chart .x.axis path { fill: none; stroke: none; shape-rendering: crispEdges; }
+#fact-svg-chart .x-axis line { fill: none; stroke: black; shape-rendering: auto; }
+#fact-svg-chart .x.axis path { fill: none; stroke: none; shape-rendering: auto; }
 #fact-svg-chart .y-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill:black; font-weight:bold; }
-#fact-svg-chart .y-axis line { fill: none; stroke: white; shape-rendering: crispEdges; }
-#fact-svg-chart .y-axis path { fill: none; stroke: none; shape-rendering: crispEdges; }
+#fact-svg-chart .y-axis line { fill: none; stroke: white; shape-rendering: auto; }
+#fact-svg-chart .y-axis path { fill: none; stroke: none; shape-rendering: auto; }
 #fact-svg-chart .y-axis-label { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill:black; font-weight:bold; }
 
 
@@ -417,14 +449,14 @@ div.popover.my-custom-class{
 #line-strain-H { stroke: #9000E0; fill: none; }
 
 /*
-#line-strain-A { stroke: #F0F000; fill: none; shape-rendering: crispEdges; }
-#line-strain-B { stroke: #808080; fill: none; shape-rendering: crispEdges; }
-#line-strain-C { stroke: #F08080; fill: none; shape-rendering: crispEdges; }
-#line-strain-D { stroke: #1010F0; fill: none; shape-rendering: crispEdges; }
-#line-strain-E { stroke: #00A0F0; fill: none; shape-rendering: crispEdges; }
-#line-strain-F { stroke: #00A000; fill: none; shape-rendering: crispEdges; }
-#line-strain-G { stroke: #F00000; fill: none; shape-rendering: crispEdges; }
-#line-strain-H { stroke: #9000E0; fill: none; shape-rendering: crispEdges; }
+#line-strain-A { stroke: #F0F000; fill: none; shape-rendering: auto; }
+#line-strain-B { stroke: #808080; fill: none; shape-rendering: auto; }
+#line-strain-C { stroke: #F08080; fill: none; shape-rendering: auto; }
+#line-strain-D { stroke: #1010F0; fill: none; shape-rendering: auto; }
+#line-strain-E { stroke: #00A0F0; fill: none; shape-rendering: auto; }
+#line-strain-F { stroke: #00A000; fill: none; shape-rendering: auto; }
+#line-strain-G { stroke: #F00000; fill: none; shape-rendering: auto; }
+#line-strain-H { stroke: #9000E0; fill: none; shape-rendering: auto; }
 */
 .churchill-banner {
 	background-color: #6B953E;

@@ -376,7 +376,7 @@ function inferValueKind(valStrings) {
  * This class provides a way of going back and forth between a numerical index
  * and a tuple of factor levels
  * @param facList
- *      a list of factors. each element must have a levels attribute 
+ *      a list of factors. each element must have a levels attribute
  * @constructor
  */
 function MultiFactors(facList) {
@@ -475,7 +475,7 @@ function readTable(text, fieldSepRegex, trimFields) {
     if(typeof trimFields === 'undefined') {
         trimFields = false;
     }
-    
+
     // break on newline
     var lines = text.split(/\r\n|\n/);
     for(var i = 0; i < lines.length; i++) {
@@ -485,7 +485,7 @@ function readTable(text, fieldSepRegex, trimFields) {
                 row[j] = row[j].trim();
             }
         }
-        
+
         // special case for empty row
         if(row.length === 1 && row[0] === '') {
             row = [];
@@ -493,7 +493,7 @@ function readTable(text, fieldSepRegex, trimFields) {
 
         lines[i] = row;
     }
-    
+
     return lines;
 }
 
@@ -539,7 +539,7 @@ function tableToSampleDataObject(sampleDataTable) {
     if(sampleDataTable.length <= 1) {
         throw 'the design table is empty';
     }
-    
+
     var headerRow = sampleDataTable[0];
     var colCount = headerRow.length;
     if(colCount === 0) {
@@ -1234,7 +1234,7 @@ function FactExpPlot(params) {
             }
 
             if(axis.jitterPx) {
-                pos += Math.random() * axis.jitterPx - axis.jitterPx;
+                pos += Math.random() * axis.jitterPx - (axis.jitterPx / 2.0);
             }
 
             return pos;

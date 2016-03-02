@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="{{request.URL_BASE}}/static/bootstrap-select/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{request.URL_BASE}}/static/jquery-fa-loading/jquery.faloading.min.css">
     <link rel="stylesheet" href="{{request.URL_BASE}}/static/css/style.css">
+    <!--
     <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-
+    //-->
 {% endblock %}
 
 {% block content %}
@@ -17,7 +18,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="app_header">{{ g.WWW.APP_HEADER }}</div>
+                    <div class="app_header">{{ g.CONF.WWW_APP_HEADER }}</div>
                 </div>
             </div>
         </div>
@@ -25,11 +26,11 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="app_header">{{ g.WWW.APP_HEADER }}</div>
+                    <div class="app_header">{{ g.CONF.WWW_APP_HEADER }}</div>
                 </div>
                 <div class="col-md-6">
                     <div class="actions">
-                    <p class="dataset_text">{{ g.WWW.DATASET_TEXT }}</p>
+                    <p class="dataset_text">{{ g.CONF.WWW_DATASET_TEXT }}</p>
                         <select name="dataset" id="dataset_select">
                         {% for k,v in all_datasets.iteritems() %}
                             {% if k == dataset %}
@@ -53,25 +54,25 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="glyphicon glyphicon-cog"></i>
-                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.WWW.MATRIX_HEADER }}</span>
+                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.CONF.WWW_MATRIX_HEADER }}</span>
                         <span class="caption-helper"></span>
                     </div>
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#portlet_tab_matrix" data-toggle="tab">{{ g.WWW.MATRIX_DATA_TAB_TEXT }}</a>
+                            <a href="#portlet_tab_matrix" data-toggle="tab">{{ g.CONF.WWW_MATRIX_DATA_TAB_TEXT }}</a>
                         </li>
                         <li>
-                            <a href="#portlet_tab_list" data-toggle="tab">{{ g.WWW.MATRIX_LIST_TAB_TEXT }}</a>
+                            <a href="#portlet_tab_list" data-toggle="tab">{{ g.CONF.WWW_MATRIX_LIST_TAB_TEXT }}</a>
                         </li>
                     </ul>
                 </div>
                 <div class="portlet-body">
                     <div class="row" id="lod_threshold_div" style="padding-bottom:10px">
                         <div class="col-md-5">
-                            <strong>{{ g.WWW.LOD_THRESHOLD_SLIDER_TEXT }}:</strong> <span id="currentLodScore">{{ lod_threshold }}</span>
+                            <strong>{{ g.CONF.WWW_LOD_THRESHOLD_SLIDER_TEXT }}:</strong> <span id="currentLodScore">{{ lod_threshold }}</span>
                         </div>
                         <div class="col-md-7">
-                            <b>{{ g.WWW.LOD_THRESHOLD_SLIDER_MIN }}</b> <input id="lodSlider" type="text"/> <b>{{ g.WWW.LOD_THRESHOLD_SLIDER_MAX }}</b>
+                            <b>{{ g.CONF.WWW_LOD_THRESHOLD_SLIDER_MIN }}</b> <input id="lodSlider" type="text"/> <b>{{ g.CONF.WWW_LOD_THRESHOLD_SLIDER_MAX }}</b>
                         </div>
                     </div>
                     <div class="tab-content">
@@ -102,15 +103,15 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="glyphicon glyphicon-search"></i>
-                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.WWW.SEARCH_HEADER }}</span>
+                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.CONF.WWW_SEARCH_HEADER }}</span>
                         <span class="caption-helper"></span>
                     </div>
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#portlet_tab1" data-toggle="tab">{{ g.WWW.SEARCH_SEARCH_TAB_TEXT }}</a>
+                            <a href="#portlet_tab1" data-toggle="tab">{{ g.CONF.WWW_SEARCH_SEARCH_TAB_TEXT }}</a>
                         </li>
                         <li>
-                            <a href="#portlet_tab2" data-toggle="tab">{{ g.WWW.SEARCH_HISTORY_TAB_TEXT }}</a>
+                            <a href="#portlet_tab2" data-toggle="tab">{{ g.CONF.WWW_SEARCH_HISTORY_TAB_TEXT }}</a>
                         </li>
                     </ul>
                 </div>
@@ -122,7 +123,7 @@
                                     <div class="input-group">
                                         <input type="text" id="searchTerm" class="form-control input-circle-left" placeholder="Example: Kit, Ren1"  value="{{ search_term }}">
                                         <span class="input-group-btn">
-                                            <button id="btnGo" class="btn btn-circle-right btn-default" data-loading-text="<i class='fa fa-spinner fa-spin'></i>" type="submit">{{ g.WWW.SEARCH_BUTTON_FIND_TEXT }}</button>
+                                            <button id="btnGo" class="btn btn-circle-right btn-default" data-loading-text="<i class='fa fa-spinner fa-spin'></i>" type="submit">{{ g.CONF.WWW_SEARCH_BUTTON_FIND_TEXT }}</button>
                                         </span>
                                     </div>
                                 </div>
@@ -150,7 +151,7 @@
                                 <div class="col-sm-12" id="searchHistoryStatus"></div>
                             </div>
                             <div class="row">
-                                 <div id="gene_history_div" style="overflow-y:auto;overflow-x:hidden;"></div>
+                                 <div id="feature_history_div" style="overflow-y:auto;overflow-x:hidden;"></div>
                             </div>
                         </div>
                     </div>
@@ -168,18 +169,20 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-area-chart"></i>
-                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.WWW.LOD_HEADER }}</span>
-                        <span id="geneInformation" class="caption-helper"></span>
+                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.CONF.WWW_LOD_HEADER }}</span>
                     </div>
-
                     <div class="actions">
-                        <a id="downloadLODPlot" data-toggle="tooltip" title="Download Plot" href="#" class="btn btn-blue btn-circle">
+                        <a id="downloadLODPlot" href="#" class="btn btn-blue btn-circle">
                             <i class="glyphicon glyphicon-download-alt"></i>
                         </a>
                     </div>
-
                 </div>
                 <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span id="featureInformation"></span>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div id="plotLOD"></div>
@@ -199,11 +202,11 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-line-chart"></i>
-                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.WWW.EFFECT_HEADER }}</span>
+                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.CONF.WWW_EFFECT_HEADER }}</span>
                         <span class="caption-helper"></span>
                     </div>
                     <div class="actions">
-                        <a id="downloadEffectPlot" data-toggle="tooltip" title="Download Plot" href="#" class="btn btn-blue btn-circle">
+                        <a id="downloadEffectPlot" href="#" class="btn btn-blue btn-circle">
                             <i class="glyphicon glyphicon-download-alt"></i>
                         </a>
                     </div>
@@ -223,11 +226,11 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-cogs"></i>
-                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.WWW.FACT_HEADER }}</span>
+                        <span class="caption-subject bold font-yellow-crusta uppercase">{{ g.CONF.WWW_FACT_HEADER }}</span>
                         <span id="_information" class="caption-helper"></span>
                     </div>
                     <div class="actions">
-                        <a id="downloadFactPlot" data-toggle="tooltip" title="Download Plot" href="#" class="btn btn-blue btn-circle">
+                        <a id="downloadFactPlot" href="#" class="btn btn-blue btn-circle">
                             <i class="glyphicon glyphicon-download-alt"></i>
                         </a>
                     </div>
@@ -243,12 +246,12 @@
 
                     <div class="row">
                         <div class="col-sm-4">
-                            <strong>{{ g.WWW.FACT_FACT_ORDER_HEADER }}</strong>
+                            <strong>{{ g.CONF.WWW_FACT_FACT_ORDER_HEADER }}</strong>
                         </div>
                     </div>
                     <div class="row" style="padding-bottom: 10px">
                         <div class="col-sm-12">
-                            <span class="text-muted"><small><em>{{ g.WWW.FACT_FACT_ORDER_TEXT }}</em></small></span>
+                            <span class="text-muted"><small><em>{{ g.CONF.WWW_FACT_FACT_ORDER_TEXT }}</em></small></span>
                         </div>
                     </div>
 
@@ -263,7 +266,7 @@
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button id="btnFactPlot" type="button" class="btn btn-primary">{{ g.WWW.FACT_BUTTON_PLOT_TEXT }}</button>
+                            <button id="btnFactPlot" type="button" class="btn btn-primary">{{ g.CONF.WWW_FACT_BUTTON_PLOT_TEXT }}</button>
                         </div>
                     </div>
                 </div>
@@ -272,8 +275,6 @@
             {% endif %}
         </div>
     </div>
-
-    <button id="btnGen" class="btn btn-circle-right btn-default" type="submit">Gen</button>
 <!-- /.container -->
 {% endblock %}
 
@@ -307,21 +308,24 @@ var _settings = {
              feature_chrom: 'feature_chrom',
              feature_location: 'feature_location',
              feature_name: 'feature_name',
+             feature_description: 'feature_description',
+
+             marker_id: 'marker_id',
              marker_chrom: 'marker_chrom',
              marker_location: 'marker_location',
-             lod_score: 'lod_score'
-    }
-};
+             marker_name: 'marker_name',
+             marker_description: 'marker_description',
 
-var _defaults = {
-    margin : {top : 20, right : 15, bottom : 35, left : 45}
+             lod_score: 'lod_score',
+             p_value: 'p_value'
+    }
 };
 
 var chromosomes = {};
 var chromosomePosStart = [];
 var chromosomePosMid = [];
 
-var orderedDataset = {};
+//var orderedDaorderedDataset = {};
 
 var _PLOTS = {};
 _PLOTS.matrix = {};
@@ -332,9 +336,16 @@ _PLOTS.fact = {};
 var _G = {};
 _G.lod = {{ lod_threshold }};
 _G.dataset = '{{ dataset }}';
-_G.currentGene = null;
+_G.currentFeature = null;
 _G.currentMarker = null;
 _G.bootstrapEnv = null;
+_G.twoPi = 2 * Math.PI;
+_G.matrixLod = {{ g.CONF.WWW_MATRIX_LOD|lower }};
+
+_G.pvalueToLod = {};
+{%- for d in pvalueToLodTable -%}
+_G.pvalueToLod['{{ d }}'] = {{ pvalueToLodTable[d]|tojson }};
+{% endfor %}
 
 
 /**
@@ -400,6 +411,10 @@ function loadChromosomeData(dataFile) {
     return ok;
 }
 
+function formatMbp(Mbp) {
+    return Number(Mbp).toFixed(2);
+}
+
 function bpToChrMBP(bp) {
     var chr = null;
     var pos = NaN;
@@ -431,7 +446,14 @@ function downloadEffectData(gene) {
         } else {
             _PLOTS.effect.data = null;
         }
+    }).row(function(d) {
+        // convert to numeric
+        {%- for strain in strains %}
+        d["{{ strain['strain_id'] }}"] = +d["{{ strain['strain_id']}}"];
+        {%- endfor %}
+        return d;
     });
+
 }
 
 {% else %}
@@ -506,7 +528,7 @@ function plotFactExpViewData(jsonData) {
         title: _G.currentMarker,
         sampleCount: jsonData.samples.length,
         xAxis: {
-            jitterPx: 20,
+            jitterPx: 25,
             min: null,
             max: null,
             variables: jsonData.xvar,
@@ -664,7 +686,8 @@ function findGene(do_plot) {
 
     var url = "{{request.URL_BASE}}/api/search?exact=False&species=Mm&term=" + searchTerm;
     console.log(url);
-    var jqxhr = $.getJSON(url).done(function( data, textStatus, jqXHR ) {
+    var jqxhr = $.getJSON(url)
+            .done(function( data, textStatus, jqXHR ) {
                console.log('data=',data);
                if (data.error) {
                    console.log(error);
@@ -681,38 +704,40 @@ function findGene(do_plot) {
                    }
 
                     var tbl = '<table id="searchTable" class="table-condensed">';
-                    tbl += '<thead><tr><th>Ensembl ID</th><th>Symbol</th><th>LOD Score</th></tr></thead>';
+                    tbl += '<thead><tr><th>Ensembl ID</th><th>Symbol</th><th>LOD</th><th>Location</th></tr></thead>';
                     tbl += '<tbody>';
 
                     for (d in data.result.matches) {
 
-                        var delem =data.result.matches[d];
+                        var match = data.result.matches[d];
+                        console.log('match=', match);
 
-                        //console.log(delem);
                         var row = '<tr>';
-                        searchResults[delem.ensembl_id] = delem;
+                        searchResults[match.ensembl_id] = match;
 
-                        if (delem.ensembl_id in _PLOTS.matrix.ids) {
+
+                        //console.log('delem[_settings.MATRIX.feature_id]=', delem[_settings.MATRIX.feature_id]);
+
+                        if (match.ensembl_id in _PLOTS.matrix.ids) {
                             // we know a point exists, find it
-                            var found = _PLOTS.matrix.svg.select('#circ_' + delem.ensembl_id)[0][0];
-                            if (found) {
-                                var _data = found.__data__;
-                                row += '<td><a href="#" id="plotMe" gene_id="' + delem.ensembl_id + '" geneSymbol="' + _data[_settings.MATRIX.feature_name] + '" ensId="' + delem.ensembl_id + '">' + delem.ensembl_id + '</a> <a href="#" gene_id="' + _data[_settings.MATRIX.feature_name] + '" ensId="' + delem.ensembl_id + '"></a><span id="matchInfo" ensId="' + delem.ensembl_id + '" class="glyphicon glyphicon-info-sign"></span></a></td>';
-                                row += ('<td>' + _data[_settings.MATRIX.feature_name] + '</td>');
-                                row += ('<td>' + Number(_data[_settings.MATRIX.lod_score]).toFixed(4) + '</td></tr>');
+                            console.log('element exists');
+                            var delem = _PLOTS.matrix.ids[match.ensembl_id];
+                            console.log('delem=',delem);
+                            row += '<td><a href="#" id="plotMe" feature_id="' + delem[_settings.MATRIX.feature_id] + '">' + delem[_settings.MATRIX.feature_id] + '</a> <span id="matchInfo" feature_id="' + delem[_settings.MATRIX.feature_id] + '" class="glyphicon glyphicon-info-sign"></span></td>';
+                            row += ('<td>' + delem[_settings.MATRIX.feature_name] + '</td>');
+                            row += ('<td>' + Number(delem[_settings.MATRIX.lod_score]).toFixed(4) + '</td>');
+                            //row += ('<td>' + delem[_settings.MATRIX.feature_chrom] + ":" + formatMbp(delem[_settings.MATRIX.feature_location]) + '</td></tr>');
+                            row += ('<td>' + match.chromosome + ":" + formatMbp(match.position_start/1000000) + "-" + formatMbp(match.position_end/1000000) + '</td>');
 
-                                _PLOTS.matrix.found.push(delem.feature_id);
-                                _PLOTS.matrix.filteredData.push(delem);
-
-                            } else {
-                                row += '<td>' + delem.ensembl_id + ' <span id="matchInfo" ensId="' + delem.ensembl_id + '" class="glyphicon glyphicon-info-sign"></span></td>';
-                                row += ('<td>' + delem.symbol + '</td>');
-                                row += ('<td></td></tr>');
-                            }
+                            _PLOTS.matrix.found.push(delem.feature_id);
+                            _PLOTS.matrix.filteredData.push(delem);
                         } else {
-                                row += '<td>' + delem.ensembl_id + ' <span id="matchInfo" ensId="' + delem.ensembl_id + '" class="glyphicon glyphicon-info-sign"></span></td>';
-                                row += ('<td>' + delem.symbol + '</td>');
-                                row += ('<td></td></tr>');
+                                console.log('element does not exist');
+                                row += '<td>' + match.ensembl_id + ' <span id="matchInfo" feature_id="' + match.ensembl_id + '" class="glyphicon glyphicon-info-sign"></span></td>';
+                                row += ('<td>' + match.symbol + '</td>');
+                                row += ('<td></td>');
+                                row += ('<td>' + match.chromosome + ":" + formatMbp(match.position_start/1000000) + "-" + formatMbp(match.position_end/1000000) + '</td>');
+                                row += ('</tr>');
                         }
                         row += '</tr>';
                         tbl += row;
@@ -738,14 +763,13 @@ function findGene(do_plot) {
                         }
                     });
 
-                    $("a[id='plotMe']").click(function (e) {
-                        //console.log($(this).attr('ensId'));
+                    $("#searchTable a").click(function (e) {
                         e.preventDefault();
-                        $("#geneInformation").html("<a target='_newwin' href='http://www.informatics.jax.org/marker/" + $(this).attr('ensId') + "'>" + $(this).attr('geneSymbol') + '</a> (' + $(this).attr('ensId') + ')');
-
-
-                       // highlightGene($(this).attr('ensId'));
-                        downloadLodData($(this).attr('gene_id'));
+                        console.log("Search Table click, this=", $(this))
+                        console.log("Search Table click, e=", e)
+                        var feature_info = _PLOTS.matrix.ids[$(this).attr('feature_id')];
+                        formatFeatureInformation(feature_info);
+                        downloadLodData(feature_info[_settings.MATRIX.feature_id]);
                         return false;
                     });
 
@@ -761,7 +785,10 @@ function findGene(do_plot) {
                                 container: 'body',
                                 template:'<div class="popover container my-custom-class" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
                                 content: function () {
-                                    var d = searchResults[that[0].getAttribute("ensid")];
+                                    console.log(that);
+                                    console.log(that[0].getAttribute("feature_id"));
+                                    var d = searchResults[that[0].getAttribute("feature_id")];
+                                    console.log(d);
                                     var h = '<table class="table table-condensed">';
                                     h += '<tr><td><strong>Symbol</strong> </td><td>' + d['symbol'] + '</td></tr>';
                                     h += '<tr><td><strong>Location</strong> </td><td>' + d['chromosome'] + ':' + d['position_start'] + '-' + d['position_end'] + '</td></tr>';
@@ -792,17 +819,17 @@ function findGene(do_plot) {
 
                // added for search_term to be passed in from url ?search_term=<something>
                if (do_plot) {
-                   console.log(Object.keys(searchResults).length);
                    if (Object.keys(searchResults).length == 1) {
-                       var d = _PLOTS.matrix.filteredData[0];
-                       var found = _PLOTS.matrix.svg.select('#circ_' + d.ensembl_id)[0][0];
-                       if (found) {
-                           console.log('found');
-                           console.log(d.ensembl_id);
-                           $("#geneInformation").html("<a target='_newwin' href='http://www.informatics.jax.org/marker/" + d.ensembl_id + "'>" + d.symbol + '</a> (' + d.ensembl_id + ')');
-                           downloadLodData(d.ensembl_id);
-                       } else {
-                           console.log('NOT FOUND');
+                       if (_PLOTS.matrix.filteredData.length == 1) {
+                           var d = _PLOTS.matrix.filteredData[0];
+                           var found = _PLOTS.matrix.svg.select('#circ_' + d.ensembl_id)[0][0];
+                           if (found) {
+                               var feature_info = _PLOTS.matrix.ids[d.ensembl_id];
+                               formatFeatureInformation(feature_info);
+                               downloadLodData(feature_info[_settings.MATRIX.feature_id]);
+                           } else {
+                               console.log('NOT FOUND');
+                           }
                        }
 
                    }
@@ -836,13 +863,13 @@ function tabulate(data, columns) {
             .enter()
             .append("th")
             .text(function (column) {
-                if (column === 'lod_score') {
+                if (column === _settings.MATRIX.lod_score) {
                     return 'LOD';
-                } else if (column === 'feature_name') {
+                } else if (column === _settings.MATRIX.feature_name) {
                     return 'Symbol'
-                } else if (column === 'feature_id') {
+                } else if (column === _settings.MATRIX.feature_id) {
                     return 'ID'
-                } else if (column === 'location') {
+                } else if (column === _settings.MATRIX.feature_location) {
                     return 'Location'
                 } else {
                     return column;
@@ -867,15 +894,16 @@ function tabulate(data, columns) {
         // create a cell in each row for each column
         var cells = rows.selectAll("td")
                 .data(function (row) {
+                    //console.log('row=',row);
                     return columns.map(function (column) {
-                        if (column === 'lod_score') {
+                        if (column === _settings.MATRIX.lod_scorwe) {
                             return {column: column, value: Number(row[column]).toFixed(2)};
-                        } else if (column === 'feature_id') {
+                        } else if (column === _settings.MATRIX.feature_id) {
                             //return {column: column, value: Number(row[column]).toFixed(2)};
-                            var atag = '<a href="#" id="plotMe" geneSymbol="' + row['Symbol'] + '" gene_id="' + row[column] + '" ensId="' + row[column] + '">' + row[column] + '</a></td>';
+                            var atag = '<a href="#" id="plotMe" feature_id="' + row[column] + '">' + row[column] + '</a></td>';
                             return {column: column, value: atag};
-                        } else if (column === 'location') {
-                            return {column: column, value: 'location'};
+                        } else if (column === _settings.MATRIX.feature_location) {
+                            return {column: column, value: row[_settings.MATRIX.feature_chrom] + ":" + formatMbp(row[column])};
                         } else {
                             return {column: column, value: row[column]};
                         }
@@ -888,29 +916,17 @@ function tabulate(data, columns) {
                     return d.value;
                 });
 
+
+
+
         return table;
     }
 
 function buildDataListTable(data, threshold) {
-    var new_data = data.filter(function(e){
-        if (+e['lod_score'] >= threshold ) {
-            return true;
-        }
-        return false;
-    });
-
     d3.select("#tblMatrix").remove();
 
     // render the table
-    var mTable = tabulate(new_data, [_settings.MATRIX.feature_id, _settings.MATRIX.feature_name, _settings.MATRIX.lod_score, 'location']);
-
-    $("#tblMatrix a").click(function (e) {
-        e.preventDefault();
-        console.log('THIS=', $(this));
-        $("#geneInformation").html("<a target='_newwin' href='http://www.informatics.jax.org/marker/" + $(this).attr('ensId') + "'>" + $(this).attr('geneSymbol') + '</a> (' + $(this).attr('ensId') + ')');
-        downloadLodData($(this).attr('gene_id'));
-        return false;
-    });
+    var mTable = tabulate(data, [_settings.MATRIX.feature_id, _settings.MATRIX.feature_name, _settings.MATRIX.lod_score, _settings.MATRIX.feature_location]);
 
     $("#tblMatrix").tablesorter({
         theme: "bootstrap",
@@ -921,44 +937,97 @@ function buildDataListTable(data, threshold) {
             zebra: ["even", "odd"]
         }
     });
+
+    $("#tblMatrix a").click(function (e) {
+        e.preventDefault();
+        console.log("Matrix Table click, this=", $(this))
+        console.log("Matrix Table click, e=", e)
+        var feature_info = _PLOTS.matrix.ids[$(this).attr('feature_id')];
+        formatFeatureInformation(feature_info);
+        downloadLodData(feature_info[_settings.MATRIX.feature_id]);
+        return false;
+    });
 }
 
 
-
+var formatPercent = d3.format(".0%");
 
 function loadMatrixData(callback) {
-    d3.tsv('{{request.URL_BASE}}/api/matrix/' + _G.dataset)
+    _PLOTS.matrix.data = [];
+    _PLOTS.matrix.chartBody.selectAll("circle").remove();
+    _PLOTS.matrix.svg.loading.meter.transition().attr("transform", "scale(1)");
+    _PLOTS.matrix.has_pvalues = false;
+
+    var url = '{{request.URL_BASE}}/api/matrix/' + _G.dataset;
+
+    d3.tsv(url)
         .on("progress", function() {
-          console.log('Downloaded: ' + d3.event.loaded + ' bytes');
+            console.log('{{request.URL_BASE}}/api/matrix/' + _G.dataset, formatPercent(d3.event.loaded/d3.event.total));
+
+            if (d3.event.loaded/d3.event.total> .9) {
+                console.log('Downloaded')
+                _PLOTS.matrix.svg.loading.text.text("Plotting...");
+            } else {
+                _PLOTS.matrix.svg.loading.text.text(formatPercent(d3.event.loaded/d3.event.total));
+            }
+
+            _PLOTS.matrix.svg.loading.foreground.attr("d", _PLOTS.matrix.svg.loading.arc.endAngle(_G.twoPi * d3.event.loaded/d3.event.total));
         })
-        .get(function(error, data) {
+        .row(function(d) {
+            // convert to numeric
+            d.feature_location = +d.feature_location;
+            d.marker_location = +d.marker_location;
+            d.lod_score = +d.lod_score;
+            if (d.p_value) {
+                d.p_value = +d.p_value;
+                _PLOTS.matrix.has_pvalues = true;
+            }
+
+            _PLOTS.matrix.data.push(d);
+            return d;
+        })
+        .on("load", function(error, data) {
+            console.log(url, "on('load')");
+
+            _PLOTS.matrix.svg.loading.text.text("Plotting...");
+
+            /*
             if (error) {
-                updateStatus('')
+                updateStatus('');
+                _PLOTS.matrix.svg.loading.meter.transition().delay(250).attr("transform", "scale(0)");
                 return;
             }
+            */
 
-            _PLOTS.matrix.data = data.filter(function (e) {
-                if ($.inArray(e[_settings.MATRIX.feature_chrom], chromosomes.names) > -1) {
-                    return true;
+            setTimeout(function() {
+                _PLOTS.matrix.data = _PLOTS.matrix.data.filter(function (e) {
+                    if ($.inArray(e[_settings.MATRIX.feature_chrom], chromosomes.names) > -1) {
+                        return true;
+                    }
+                    return false;
+                });
+
+
+
+                drawMatrix(false);
+
+                if (callback != null) {
+                    callback();
                 }
-                return false;
-            });
 
-            drawMatrix(false);
+                    console.log('finished');
 
+            }, 10);
 
-            if (callback != null) {
-                callback();
-            }
-        });
-}
+            //_PLOTS.matrix.svg.loading.meter.transition().delay(2500).attr("transform", "scale(0)");
+        }).get();
+ }
 
 
 function initMatrix() {
     var graphic = $('#plotMatrix');
     graphic.empty();
     console.log('empty');
-
 
     //var graphic_aspect_width = 16;
     //var graphic_aspect_height = 9;
@@ -984,7 +1053,7 @@ function initMatrix() {
 
     d3.select("#dataMatrix").style("height", plot.height+"px");
     d3.select("#searchResults").style("height", ($lod_threshold_div.outerHeight() + plot.height)+"px");
-    d3.select("#gene_history_div").style("height", ($lod_threshold_div.outerHeight() + plot.height)+"px");
+    d3.select("#feature_history_div").style("height", ($lod_threshold_div.outerHeight() + plot.height)+"px");
 
     console.log("plot.height=", plot.height);
 
@@ -1030,20 +1099,20 @@ function initMatrix() {
         .tickValues(chromosomePosMid)
         .tickFormat(function(d) { return bpToChrMBP(d).chr; });
 
-    var xTitleDim = measureText(plot.svg, "{{ g.WWW.MATRIX_X_AXIS_TEXT }}", "x-axis-title");
-    var yTitleDim = measureText(plot.svg, "{{ g.WWW.MATRIX_Y_AXIS_TEXT }}", "y-axis-title");
+    var xTitleDim = measureText(plot.svg, "{{ g.CONF.WWW_MATRIX_X_AXIS_TEXT }}", "x-axis-title");
+    var yTitleDim = measureText(plot.svg, "{{ g.CONF.WWW_MATRIX_Y_AXIS_TEXT }}", "y-axis-title");
 
     plot.svg.append("text")
         .attr("y", 0 - margin.top - (yTitleDim.height/2))
         .attr("x", -(plot.height/2) - (yTitleDim.width/2))
         .attr("transform", "rotate(-90)")
-        .text("{{ g.WWW.MATRIX_Y_AXIS_TEXT }}")
+        .text("{{ g.CONF.WWW_MATRIX_Y_AXIS_TEXT }}")
         .attr("class", "y-axis-title");
 
     plot.svg.append("text")
         .attr("y", plot.height + margin.bottom)
         .attr("x", (plot.width/2) - (xTitleDim.width/2))
-        .text("{{ g.WWW.MATRIX_X_AXIS_TEXT }}")
+        .text("{{ g.CONF.WWW_MATRIX_X_AXIS_TEXT }}")
         .attr("class", "x-axis-title");
 
     var clipX = plot.svg.append("clipPath")
@@ -1105,8 +1174,31 @@ function initMatrix() {
         .tickValues(chromosomePosStart)
         .tickFormat(""));
 
+    // loading SVG elements
 
+    plot.svg.loading = {};
+    plot.svg.loading.g = plot.svg.append("g")
+            .attr("transform", "translate(" + (plot.width)/ 2 + "," +
+                                              (plot.height)/ 2 + ")");
 
+    plot.svg.loading.arc = d3.svg.arc()
+        .startAngle(0)
+        .innerRadius(100)
+        .outerRadius(160);
+
+    plot.svg.loading.meter = plot.svg.loading.g.append("g")
+            .attr("class", "progress-meter");
+
+    plot.svg.loading.background = plot.svg.loading.meter.append("path")
+            .attr("class", "background")
+            .attr("d", plot.svg.loading.arc.endAngle(_G.twoPi));
+
+    plot.svg.loading.foreground = plot.svg.loading.meter.append("path")
+            .attr("class", "foreground");
+
+    plot.svg.loading.text = plot.svg.loading.meter.append("text")
+            .attr("text-anchor", "middle")
+            .attr("dy", ".35em");
 }
 
 
@@ -1116,20 +1208,54 @@ function drawMatrix(initialize) {
         initMatrix();
     }
 
-
-    plot = _PLOTS.matrix;
+    var plot = _PLOTS.matrix;
 
     //remove all the circles
     plot.chartBody.selectAll("circle").remove();
-
     plot.ids = {};
 
+    _G.threshold_value = _G.lod;
+    if (_G.matrixLod) {
+        console.log("using lod, threshold =", _G.lod);
+    } else {
+        console.log("using p-value, threshold =", _G.lod);
+        console.log('lodA=', _G.pvalueToLod[_G.dataset]['dfA'][_G.lod]);
+        console.log('lodX=', _G.pvalueToLod[_G.dataset]['dfX'][_G.lod]);
+    }
+
+    plot.data_displayed = plot.data.filter(function(d) {
+        if (d[_settings.MATRIX.feature_id] === '') {
+            // don't use data without an id
+            return false;
+        }
+
+        plot.ids[d[_settings.MATRIX.feature_id]] = d;
+
+        if (_G.matrixLod) {
+            return d[_settings.MATRIX.lod_score] > _G.lod;
+        } else {
+            if (d[_settings.MATRIX.feature_chrom] === 'X') {
+                return d[_settings.MATRIX.lod_score] > _G.pvalueToLod[_G.dataset][['dfX']][_G.lod];
+            } else {
+                return d[_settings.MATRIX.lod_score] > _G.pvalueToLod[_G.dataset]['dfA'][_G.lod];
+            }
+
+        }
+    });
+
+    console.log('plot.data.length=',plot.data.length);
+    console.log('plot.data_displayed.length=',plot.data_displayed.length);
+
+
+
+
+
+
     plot.chartBodyCircles = plot.chartBody.selectAll("circle")
-        .data(plot.data)
+        .data(plot.data_displayed)
         .enter()
         .append("circle")
         .attr('id', function (d) {
-            plot.ids[d[_settings.MATRIX.feature_id]] = d;
             return 'circ_' + d[_settings.MATRIX.feature_id];
         })
         .attr("class", "dot")
@@ -1146,7 +1272,7 @@ function drawMatrix(initialize) {
             return 2;
         })
         .style("opacity", function (d) {
-            var s = parseFloat(d[_settings.MATRIX.lod_score]);
+            var s = d[_settings.MATRIX.lod_score];
             if (s > 20) { return 1; }
             else { return s * 5 / 100; }
         })
@@ -1154,23 +1280,30 @@ function drawMatrix(initialize) {
             d3.selectAll('#circ_' + d[_settings.MATRIX.feature_id]).attr("r", 4).style("fill", "red").style("opacity", 1.0);
         })
         .on("mouseout", function (d) {
-            d3.selectAll('#circ_' + d[_settings.MATRIX.feature_id]).attr("r", 2).style("opacity", function (d) {
-                var s = parseFloat(d[_settings.MATRIX.lod_score]);
-                if (s > 20) { return 1; }
-                else { return s * 5 / 100; }
+            d3.selectAll('#circ_' + d[_settings.MATRIX.feature_id])
+                    .attr("r", function(d2) {
+                            if (plot.width < plot.mobile_threshold) {
+                                return 1;
+                            }
+                            return 2;
+                     })
+                    .style("opacity", function (d) {
+                            var s = parseFloat(d[_settings.MATRIX.lod_score]);
+                            if (s > 20) { return 1; }
+                            else { return s * 5 / 100; }
             }).style("fill", "black");
         })
-        .on("click", function (d) {
-            console.log('d', d);
-            formatGeneInformation(d[_settings.MATRIX.feature_id],
-                                  d[_settings.MATRIX.feature_name],
-                                  d[_settings.MATRIX.feature_chrom],
-                                  +(d[_settings.MATRIX.feature_location])*1000000);
+    .on("click", function (d) {
+            console.log("Search Table click, this=", $(this))
+            console.log("Search Table click, d=", d)
+            formatFeatureInformation(d);
             downloadLodData(d[_settings.MATRIX.feature_id]);
         });
 
 
-    buildDataListTable(plot.data, _G.lod);
+    //console.log($('#' + plot.id + ' circle'));
+    console.log('building datalist matrix');
+    buildDataListTable(plot.data_displayed, _G.lod);
 
     $('#' + plot.id + ' circle').each(function () {
         //console.log(this);
@@ -1195,38 +1328,43 @@ function drawMatrix(initialize) {
         });
     });
 
-    applyLODThreshold({{ lod_threshold }});
+    //applyLODThreshold({{ lod_threshold }});
+
+    plot.svg.loading.meter.transition().attr("transform", "scale(0)");
+    plot.svg.loading.text.text("");
 
     {% if search_term %}
     console.log('Finding gene now...');
     findGene(true);
     {% endif %}
 
-    if (_PLOTS.matrix.spinner != null) {
-        _PLOTS.matrix.spinner.faLoading(false);
-        _PLOTS.matrix.spinner = null;
-    }
     var $lod_threshold_div = $("#lod_threshold_div");
 
     d3.select("#dataMatrix").style("height", $("#plotMatrixSVG").height()+"px");
     d3.select("#searchResults").style("height", ($lod_threshold_div.outerHeight() + plot.height)+"px");
-    d3.select("#gene_history_div").style("height", ($lod_threshold_div.outerHeight() + plot.height)+"px");
+    d3.select("#feature_history_div").style("height", ($lod_threshold_div.outerHeight() + plot.height)+"px");
     $("#portletSearch").height($("#portletMatrix").height());
 }
 
-function formatGeneInformation(feature_id, feature_name, chromosome, location) {
-    var html = "<a target='_newwin' href='http://www.informatics.jax.org/marker/";
-    html += feature_id;
-    html += "'>";
-    html += feature_name;
-    html += "</a> ";
+function formatFeatureInformation(feature_info) {
+    console.log("feature_info=", feature_info);
+    var html = "";
     html += "<strong>";
-    html += feature_id;
-    html += "</strong>, located at chr";
-    html += chromosome;
-    html += ":";
-    html += location;
-    $("#geneInformation").html(html);
+    html += feature_info[_settings.MATRIX.feature_id];
+    html += "</strong>, ";
+    html += feature_info[_settings.MATRIX.feature_name];
+    html += ", located on chromosome ";
+    html += feature_info[_settings.MATRIX.feature_chrom];
+    html += " at ";
+    html += formatMbp(feature_info[_settings.MATRIX.feature_location]);
+    html += " Mb ";
+    html += " <a target='_newwin' href='http://www.ensembl.org/Mus_musculus/Gene/Summary?db=core;g=";
+    html += feature_info[_settings.MATRIX.feature_id];
+    html += "'> Ensembl <i class='fa fa-external-link'></i></a> ";
+    html += " <a target='_newwin' href='http://www.informatics.jax.org/marker/";
+    html += feature_info[_settings.MATRIX.feature_id];
+    html += "'>MGI <i class='fa fa-external-link'></i></a> ";
+    $("#featureInformation").html(html);
 
 }
 
@@ -1252,33 +1390,35 @@ function arraymove(arr, fromIndex, toIndex) {
  * Download the LOD scores
  */
 
-function downloadLodData(gene) {
-    console.log('Acquiring data for ' + gene);
+function downloadLodData(feature) {
+    console.log('Acquiring data for ' + feature);
 
     // cookies, everywhere cookie
-    var gene_data = Cookies.getJSON("gene_data");
+    var feature_data = Cookies.getJSON("feature_data");
     var index = -1;
 
-    // build the history of 'clicked' genes
-    if (gene_data) {
+    // build the history of 'clicked' features
+    if (feature_data) {
         // move to the top if already here
-        for (var i in gene_data) {
+        for (var i in feature_data) {
             //console.log('gene_data[i]=',gene_data[i]);
-            if (gene_data[i]['id'] === gene) {
+            if (feature_data[i]['id'] === feature) {
                 index = i;
                 break;
             }
         }
         if (index > 0) {
-            arraymove(gene_data, index, 0);
+            arraymove(feature_data, index, 0);
         } else if (index == -1) {
-            console.log('_PLOTS.matrix.ids[gene]=',_PLOTS.matrix.ids[gene]);
-            var gene_info = {'id': gene, 'sym': _PLOTS.matrix.ids[gene]['feature_name'], 'lod': _PLOTS.matrix.ids[gene]['lod_score']}
-            gene_data.unshift(gene_info);
+            console.log('_PLOTS.matrix.ids[gene]=',_PLOTS.matrix.ids[feature]);
+            var feature_info = {'id': feature, 'sym': _PLOTS.matrix.ids[feature]['feature_name'],
+                'lod': _PLOTS.matrix.ids[feature]['lod_score'],
+                'location': _PLOTS.matrix.ids[feature][_settings.MATRIX.feature_chrom] + ":" + formatMbp(_PLOTS.matrix.ids[feature][_settings.MATRIX.feature_location])}
+            feature_data.unshift(feature_info);
 
 
-            if (gene_data.length > 25) {
-                gene_data.pop();
+            if (feature_data.length > 25) {
+                feature_data.pop();
             }
 
 
@@ -1286,17 +1426,19 @@ function downloadLodData(gene) {
             console.log('doing nothing, returning');
         }
     } else {
-        var gene_info = {'id': gene, 'sym': _PLOTS.matrix.ids[gene]['feature_name'], 'lod': _PLOTS.matrix.ids[gene]['lod_score']}
-        gene_data = [gene_info];
+        var feature_info = {'id': feature, 'sym': _PLOTS.matrix.ids[feature]['feature_name'],
+            'lod': _PLOTS.matrix.ids[feature]['lod_score'],
+            'location': _PLOTS.matrix.ids[feature][_settings.MATRIX.feature_chrom] + ":" + formatMbp(_PLOTS.matrix.ids[feature][_settings.MATRIX.feature_location])};
+        feature_data = [feature_info];
     }
 
     // attempt to set the cookie, if there is to much data the cookie won't set, so we need to check and adjust the array size
-    Cookies.set("gene_data", gene_data);
-     _G.currentGene = gene;
+    Cookies.set("feature_data", feature_data);
+     _G.currentFeature = feature;
 
     buildHistory();
 
-    d3.tsv('{{request.URL_BASE}}/api/lod/' + _G.dataset + '/' + gene, function (error, data) {
+    d3.tsv('{{request.URL_BASE}}/api/lod/' + _G.dataset + '/' + feature, function (error, data) {
         updateStatus(error);
         if (error == null) {
             //console.log('LOD data', data);
@@ -1305,10 +1447,10 @@ function downloadLodData(gene) {
 
             {% if render_effect_plot %}
             console.log('DOWNLOADING EFFECT DATA');
-            downloadEffectData(gene);
+            downloadEffectData(feature);
             {% else %}
             console.log('DOWNLOADING FACT DATA');
-            downloadFactData(gene, getFactorOrder(), _G.currentMarker);
+            downloadFactData(feature, getFactorOrder(), _G.currentMarker);
             {% endif %}
 
             updateStatus('');
@@ -1353,49 +1495,32 @@ function initLOD() {
         .attr('height', plot.height + margin.top + margin.bottom)
         .attr("xmlns", "http://www.w3.org/2000/svg");
 
-    //plot.svg.attr("xmlns", "http://www.w3.org/1999/xlink");
-
-
-    //<link rel="stylesheet" href="{{request.URL_BASE}}/static/css/style.css">
-
-    //plot.svg.append("link")
-      //      .attr("xmlns", "http://www.w3.org/1999/xhtml")
-        //    .attr("href", "http://127.0.0.1:8082/static/css/plot_lod.css")
-        //    .attr("type", "text/css")
-        //    .attr("rel", "stylesheet");
-
-
-       //var h = "/* <![CDATA[ */\n";
-       //h += " { background-color:white; }  .plot { fill: rgba(222, 222, 222, 1.0); stroke-width: 1; stroke: black; shape-rendering: crispEdges; }  .x-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill: black; font-weight:bold; }  .x-axis-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill: black; font-weight:bold; }  .x-axis line { fill: none; stroke: black; shape-rendering: crispEdges; }  .x.axis path { fill: none; stroke: none; shape-rendering: crispEdges; }  .y-axis { font-family: 'Ubuntu', sans-serif; font-size: 10px; fill:black; font-weight:bold; }  .y-axis line { fill: none; stroke: white; shape-rendering: crispEdges; }  .y-axis path { fill: none; stroke: none; shape-rendering: crispEdges; }  .y-axis-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; fill:black; font-weight:bold; }  .checkerboard1 { fill:rgb(200, 200, 200); stroke-width: 1; shape-rendering: crispEdges; }  .checkerboard2 { fill:rgb(230, 230, 230); stroke-width: 1; shape-rendering: crispEdges; }  .plotlod-circle { pointer-events:all;}";
-       //h += "\n/* ]]> */";
-
-       //$("#plotLODSVG").append("<style>@import url({{request.URL_BASE}}/static/css/plot_lod.css);</style>");
-
-
-
 
     plot.svg = plot.svg
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var yTitleDim = measureText(plot.svg, "{{ g.WWW.LOD_Y_AXIS_TEXT }}", "y-axis-title");
+
+    var yTitleDim = measureText(plot.svg, "{{ g.CONF.WWW_LOD_Y_AXIS_TEXT }}", "y-axis-title");
     plot.svg.append("text")
             .attr("y", 0 - margin.top - (yTitleDim.height/2))
             .attr("x", -(plot.height/2) - (yTitleDim.width/2))
             .attr("transform", "rotate(-90)")
-            .text("{{ g.WWW.LOD_Y_AXIS_TEXT }}")
+            .text("{{ g.CONF.WWW_LOD_Y_AXIS_TEXT }}")
             .attr("class", "y-axis-title");
 
-    var xTitleDim = measureText(plot.svg, "{{ g.WWW.LOD_X_AXIS_TEXT }}", "x-axis-title");
+    var xTitleDim = measureText(plot.svg, "{{ g.CONF.WWW_LOD_X_AXIS_TEXT }}", "x-axis-title");
     plot.svg.append("text")
             .attr("y", plot.height + margin.bottom)
             .attr("x", (plot.width/2) - (xTitleDim.width/2))
-            .text("{{ g.WWW.LOD_X_AXIS_TEXT }}")
+            .text("{{ g.CONF.WWW_LOD_X_AXIS_TEXT }}")
             .attr("class", "x-axis-title");
 
+    plot.data_chr = {};
+
     for (var i = 0; i < chromosomes.names.length; i++) {
-        orderedDataset[chromosomes.names[i]] = {};
-        orderedDataset[chromosomes.names[i]].data = [];
+        plot.data_chr[chromosomes.names[i]] = {};
+        plot.data_chr[chromosomes.names[i]].data = [];
     }
 
     plot.maxLod = null;
@@ -1409,6 +1534,7 @@ function initLOD() {
     plot.groupTop = plot.svg.append('g').attr('id', 'plots.lodGroupTop');
     plot.groupNondata = plot.groupTop.append('g').attr('id', 'plots.lodGroupNondata');
     plot.groupData = plot.groupTop.append('g').attr('id', 'plots.lodGroupData');
+    plot.lodLine = null;
     plot.groupDataChr = {};
     plot.groupDataCircle = {};
     /*
@@ -1470,19 +1596,25 @@ function drawLOD(initialize) {
     var plot = _PLOTS.lod;
     var dataset = plot.data;
 
+
+    // plot.data_chr[c] has the markers and their positions (to be plotted on x-axis)
+
+    plot.data_chr = {};
+    plot.data_chr_filtered = {};
+
     for (var i = 0; i < chromosomes.names.length; i++) {
-        orderedDataset[chromosomes.names[i]] = {};
-        orderedDataset[chromosomes.names[i]].data = [];
+        plot.data_chr[chromosomes.names[i]] = {};
+        plot.data_chr[chromosomes.names[i]].data = [];
     }
 
     plot.maxLod = dataset[0];
 
     for (d in dataset) {
         var elem = dataset[d];
-        if (parseFloat(elem['lod']) > parseFloat(plot.maxLod['lod'])) {
+        if (elem['lod'] > plot.maxLod['lod']) {
             plot.maxLod = elem;
         }
-        orderedDataset[elem['chrom']].data.push(elem);
+        plot.data_chr[elem['chrom']].data.push(elem);
     }
 
     _G.currentMarker = plot.maxLod['marker_id'];
@@ -1502,9 +1634,9 @@ function drawLOD(initialize) {
         transitionData = true;
     }
 
+
     for (var i = 0; i < chromosomes.names.length; i++) {
         var chr_i = chromosomes.data[chromosomes.names[i]];
-        updateStatus(chromosomes.names[i]);
 
         if (plot.groupDataChr[chromosomes.names[i]] == null) {
             plot.groupDataChr[chromosomes.names[i]] = plot.groupData.append("g").attr('id', 'chr' + chromosomes.names[i]);
@@ -1517,31 +1649,21 @@ function drawLOD(initialize) {
         var end_sx = plot.x(chrMBPToTotalBP(chr_i.name, (length_bp_i / 1000000)));   // pixel end
         var length_sx = end_sx - start_sx;                                           // pixel length
 
-        orderedDataset[chromosomes.names[i]].scale_x = d3.scale.linear().rangeRound([start_sx, end_sx]).domain([start_bp_i, end_bp_i]);
+        plot.data_chr[chromosomes.names[i]].scale_x = d3.scale.linear().rangeRound([start_sx, end_sx]).domain([start_bp_i, end_bp_i]);
 
         var line = d3.svg.line().x(function (d) {
             var val = chrMBPToTotalBP(d['chrom'], parseInt(d['location']));
-            var x1 = orderedDataset[chromosomes.names[i]].scale_x(val);
+            var x1 = plot.data_chr[chromosomes.names[i]].scale_x(val);
             return x1;
         }).y(function (d) {
             return plot.y(parseFloat(d['lod']));
         });
 
-        /*
-        console.log('chromosome=',chromosomes.names[i]);
-        console.log('start_bp_i=', start_bp_i);
-        console.log('length_bp_i=', length_bp_i);
-        console.log('end_bp_i=', end_bp_i);
-        console.log('start_sx=', start_sx);
-        console.log('end_sx=', end_sx);
-        console.log('length_sx=', length_sx);
-        */
-
         // TODO: resample should be configurable
-        var l = orderedDataset[chromosomes.names[i]].data.length;
+        var l = plot.data_chr[chromosomes.names[i]].data.length;
         //var num_elem = Math.ceil(l/length_sx)*4;
         var num_elem = Math.ceil(l/length_sx)*3;
-        var arr = createGroupedArray(orderedDataset[chromosomes.names[i]].data, num_elem);
+        var arr = createGroupedArray(plot.data_chr[chromosomes.names[i]].data, num_elem);
 
         var nd = [];
 
@@ -1559,10 +1681,13 @@ function drawLOD(initialize) {
         }
 
         //console.log('length was ', l, 'but now is ', nd.length);
-        orderedDataset[chromosomes.names[i]].data = nd;
+        //plot.data_chr[chromosomes.names[i]].data = nd;
+        plot.data_chr_filtered[chromosomes.names[i]] = {};
+        plot.data_chr_filtered[chromosomes.names[i]].data = nd;
+
 
         if (transitionData && !initialize) {
-            mydata = orderedDataset[chromosomes.names[i]].data;
+            mydata = plot.data_chr_filtered[chromosomes.names[i]].data;
             plot.groupDataChr[chromosomes.names[i]].select('path')
                 //.data(mydata)
                 .transition()
@@ -1597,7 +1722,7 @@ function drawLOD(initialize) {
                 .text(chromosomes.names[i])
                 .attr("class", "x-axis");
 
-            mydata = orderedDataset[chromosomes.names[i]].data;
+            mydata = plot.data_chr_filtered[chromosomes.names[i]].data;
             plot.groupDataChr[chromosomes.names[i]]
                 .append("path")
                 .data(mydata)
@@ -1627,7 +1752,7 @@ function drawLOD(initialize) {
         plot.groupDataCircle[name] = plot.groupData.append('g').attr('id', 'circ' + name);
 
         plot.groupDataCircle[name].selectAll("circle")
-            .data(orderedDataset[name].data)
+            .data(plot.data_chr_filtered[name].data)
             .enter()
             .append("circle")
             .attr("r", 5)
@@ -1651,7 +1776,7 @@ function drawLOD(initialize) {
                 }
             })
             .attr("cx", function (d) {
-                return orderedDataset[name].scale_x(chrMBPToTotalBP(d["chrom"], parseInt(d["location"])));
+                return plot.data_chr[name].scale_x(chrMBPToTotalBP(d["chrom"], parseInt(d["location"])));
             })
             .attr("cy", function (d) {
                 return plot.y(d['lod']);
@@ -1675,7 +1800,7 @@ function drawLOD(initialize) {
                     drawEffect(false);
                 {% else %}
                     _G.currentMarker = d['marker_id'];
-                    downloadFactData(_G.currentGene, getFactorOrder(), _G.currentMarker);
+                    downloadFactData(_G.currentFeature, getFactorOrder(), _G.currentMarker);
                     console.log('PLOT FACT');
                     console.log(d);
                 {% endif %}
@@ -1700,6 +1825,19 @@ function drawLOD(initialize) {
             }
         });
     });
+
+
+    if (plot.lodLine) {
+        plot.lodLine.remove();
+    }
+    plot.lodLine = plot.groupData.append("line")
+                          .attr("x1", 0)
+                          .attr("y1", plot.y(_G.lod))
+                          .attr("x2", plot.width)
+                          .attr("y2",  plot.y(_G.lod))
+                          .style("stroke-dasharray", ("3, 3"))
+                          .attr("stroke-width", 1)
+                          .attr("stroke", "red");
 
     plot.groupYAxis = plot.groupNondata.append("g")
         .attr("id", "lodYAxis")
@@ -1739,24 +1877,25 @@ function drawEffect(initialize) {
         _PLOTS.effect.groupTop.selectAll(".strains").transition();
         _PLOTS.effect.groupTop.remove();
         _PLOTS.effect.groupTop = _PLOTS.effect.svg.append("g").attr('id', 'plotCoefTopGroup');
-        _PLOTS.effect.groupTop = _PLOTS.effect.svg.append("g").attr('id', 'plotCoefTopGroup');
     }
 
-    probeLookup = {};
-    console.log(orderedDataset);
-    // orderedDataset[c] has the probes and their positions (to be plotted on x-axis)
+    var probeLookup = {};
+
+    //console.log("orderedDataset=", orderedDataset);
+
+    // DATA.COEF has the downloaded coef data (to be plotted on y-axis)
     // DATA.COEF has the downloaded coef data (to be plotted on y-axis)
 
     // newCoef will contain only matching probeids
     var newCoef = _PLOTS.effect.data.filter(function (e) {
         var probeId = e["marker_id"];
         var match = false;
-        if (_G.currentChrom in orderedDataset) {
-            for (var i = 0; i < orderedDataset[_G.currentChrom].data.length; i++) {
-                if (probeId === orderedDataset[_G.currentChrom].data[i]['marker_id']) {
+        if (_G.currentChrom in _PLOTS.lod.data_chr) {
+            for (var i = 0; i < _PLOTS.lod.data_chr[_G.currentChrom].data.length; i++) {
+                if (probeId === _PLOTS.lod.data_chr[_G.currentChrom].data[i]['marker_id']) {
                     probeLookup[probeId] = {
-                        chr: orderedDataset[_G.currentChrom].data[i]['chrom'],
-                        pos: orderedDataset[_G.currentChrom].data[i]['location']
+                        chr: _PLOTS.lod.data_chr[_G.currentChrom].data[i]['chrom'],
+                        pos: _PLOTS.lod.data_chr[_G.currentChrom].data[i]['location']
                     };
                     return true;
                 }
@@ -1765,13 +1904,8 @@ function drawEffect(initialize) {
         return false;
     });
 
-    console.log(probeLookup);
-
-
-
     // get the keys of the file
     var keys = d3.keys(newCoef[0]);
-
 
     var new_keys = keys.filter(function (key) {
         return key !== "marker_id";
@@ -1779,11 +1913,9 @@ function drawEffect(initialize) {
 
     var strains = d3.scale.ordinal().domain(new_keys);
 
-    console.log('new_keys=', new_keys);
-
     var strains2 = strains.domain().map(function (name) { // name will be each of the new_keys values
         return {
-            // swith this to the strain name
+            // switch this to the strain name
             name: name,
             // create an array of objects to return
             values: newCoef.map(function (d) {
@@ -1841,81 +1973,34 @@ function drawEffect(initialize) {
         .attr("class", "y-axis")
         .call(yAxis);
 
-    console.log(strains2);
-
-
-
-    var cwhoa = _PLOTS.effect.groupTop.selectAll(".strains")
+    var gStrains = _PLOTS.effect.groupTop.selectAll(".strains")
         .data(strains2)
         .enter()
         .append("g")
         .attr("class", "strains");
 
-    var path = cwhoa.append("path")
-        .attr("d", function (d) {
-            return line(d.values);
-        })
-        .attr('id', function (d) {
-            return 'line-strain-' + d.name;
-        })
-             .attr("stroke", "steelblue")
-      .attr("stroke-width", "2")
-      .attr("fill", "none");
+    var path = gStrains.append("path")
+                       .attr("d", function (d) {
+                                      return line(d.values);
+                       })
+                       .attr('id', function (d) {
+                                       return 'line-strain-' + d.name;
+                       })
+                       .attr("stroke", "steelblue")
+                       .attr("stroke-width", "2")
+                       .attr("fill", "none");
 
     var totalLength = path.node().getTotalLength();
 
-
-
-    path
-      .attr("stroke-dasharray", totalLength + " " + totalLength)
-      .attr("stroke-dashoffset", totalLength)
-      .transition()
+    path.attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
         .duration(500)
         .ease("linear")
         .attr("stroke-dashoffset", 0);
-
-
-/*
-    var cwhoa = _PLOTS.effect.groupTop.selectAll(".strains")
-        .data(strains2)
-        .enter()
-        .append("g")
-        .attr("class", "strains");
-
-    cwhoa.append("path")
-        .attr("d", function (d) {
-            return line(d.values);
-        })
-        .attr('id', function (d) {
-            return 'line-strain-' + d.name;
-        })
-        .attr("opacity", "0")
-        .style("stroke-width", "0")
-        .transition()
-            .duration(1000)
-            .ease("linear")
-        .attr("opacity", "1")
-        .style("stroke-width", "2");
-        */
-    /*
-
-    //    .style("stroke", function (d) {
-    //        return _PLOTS.effect.strainColors[d.name].color;
-    //    });
-   */
 }
 
 {% endif %}
-
-function setPlotDefaults(plot) {
-    for (key in _defaults) {
-        plot[key] = _defaults[key];
-    }
-}
-
-
-
-
 
 
 {% if render_effect_plot %}
@@ -1948,107 +2033,134 @@ function initEffect() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var yTitleDim = measureText(plot.svg, "{{ g.WWW.EFFECT_Y_AXIS_TEXT }}", "y-axis-title");
-    plot.svg.append("text")
-            .attr("y", 0 - margin.top - (yTitleDim.height/2))
-            .attr("x", -(plot.height/2) - (yTitleDim.width/2))
-            .attr("transform", "rotate(-90)")
-            .text("{{ g.WWW.EFFECT_Y_AXIS_TEXT }}")
-            .attr("class", "y-axis-title");
-
-    var xTitleDim = measureText(plot.svg, "{{ g.WWW.EFFECT_X_AXIS_TEXT }}", "x-axis-title");
-    plot.svg.append("text")
-            .attr("y", plot.height + margin.bottom)
-            .attr("x", (plot.width/2) - (xTitleDim.width/2))
-            .text("{{ g.WWW.EFFECT_X_AXIS_TEXT }}")
-            .attr("class", "x-axis-title");
-
-
-
-
     plot.strainColors = {};
 
     // TODO: read strains and generate teh following
     // LOOK at how to style lines by css
 
-    {% for strain in strains -%}
-        plot.strainColors["{{ strain['strain_id'] }}"] = {'color':"#F0F000",'name':"{{ strain['name'] }}"};
+    {%- for strain in strains %}
+    plot.strainColors["{{ strain['strain_id'] }}"] = {'color':"black",'name':"{{ strain['name'] }}"};
     {%- endfor %}
 
+    plot.legend = {};
 
-    /*
-    _PLOTS.effect.strainColors["A"] = {'color':"#F0F000",'name':"A/J"};
-    _PLOTS.effect.strainColors["B"] = {'color':"#808080",'name':"C57BL/6J"};
-    _PLOTS.effect.strainColors["C"] = {'color':"#F08080",'name':"129S1/SvImJ"};
-    _PLOTS.effect.strainColors["D"] = {'color':"#1010F0",'name':"NOD/ShiLtJ"};
-    _PLOTS.effect.strainColors["E"] = {'color':"#00A0F0",'name':"NZO/H1LtJ"};
-    _PLOTS.effect.strainColors["F"] = {'color':"#00A000",'name':"CAST/EiJ"};
-    _PLOTS.effect.strainColors["G"] = {'color':"#F00000",'name':"PWK/PhJ"};
-    _PLOTS.effect.strainColors["H"] = {'color':"#9000E0",'name':"WSB/EiJ"};
-    */
+    var numStrains = {{ strains|length }};
+    var maxNameLength = 0;
+    var maxNameLengthValue = "";
+    for (s in plot.strainColors) {
+        if (maxNameLength < plot.strainColors[s].name.length) {
+            maxNameLength = plot.strainColors[s].name.length;
+            maxNameLengthValue = plot.strainColors[s].name;
+        }
+    }
+    plot.legend.margin = 5;
+    plot.legend.height = plot.height - (plot.legend.margin * 2);
 
-    var width = plot.width - 100;
-    var legendTop = plot.svg.append("g");
-    legendTop.append("rect")
-              .attr('class', 'legend')
-              .style("fill", "#eeeeee")
-              .style("stroke-width", 1)
-              .style('stroke','black')
-              .style('shape-rendering','crispEdges')
-               .attr("x", width + 10)
-               .attr("y", 0)
-               .attr("width", plot.width - width)
-               .attr("height", (8*15)+5); // TODO: fix this calculation
+    var legendTextDim = measureText(plot.svg, maxNameLengthValue, "legend-text");
+    var rectSize = legendTextDim.height;
+    var spacer = 5;
 
-    var legend = legendTop.selectAll('g')
-                     .data(function() {
-                                var keys = [];
-                                for(var k in plot.strainColors) {
-                                    keys.push(k);
-                                }
-                                return keys;
-                          })
-                    .enter()
-                    .append('g');
+    plot.legend.width = (plot.legend.margin * 2) + (spacer * 2) + legendTextDim.width + rectSize;
 
-    legend.append('rect')
-            .attr('id', function (d, i) {
-                return 'rect-strain-' + d;
-            })
-        .attr('x', width + 15)
-        .attr('y', function (d, i) {
-            return (i * 15) + 5;
-        })
-        .attr('width', 10)
-        .attr('height', 10)
-        .on("click", function(d) {
-            var strainLine = plot.svg.select("#strain-" + d);
-            if (strainLine != null) {
-                var opacity = strainLine.attr('opacity');
-                //console.log('opacity=' + opacity);
-                if (opacity == 0) {
-                     strainLine.transition()
-                                .attr("opacity", "1")
-                                .style("stroke-width", "2");
-                } else {
-                     strainLine.transition()
-                                .attr("opacity", "0")
-                                .style("stroke-width", "10");
+    // will stuff fit?
+    var calcHeight = (plot.legend.margin * 2) + (legendTextDim.height + spacer) * numStrains;
 
-                }
-            }
+    if (plot.height < calcHeight) {
+        console.log("RECALCULATING HEIGHT");
+        console.log("was plot.height = ", plot.height);
+        plot.height = calcHeight;// + margin.top + margin.bottom;
+        console.log("now plot.height = ", plot.height);
 
-        })
+        d3.select("#plotEffectSVG").remove();
 
-    legend.append('text')
-        .attr("class", "legend-text")
-        .attr('x', width + 25)
-        .attr('y', function (d, i) {
-                        return ((i * 15) + 5) + 9;
-    })
-    .text(function (d) {
-        return plot.strainColors[d].name;
-        });
+        plot.svg = d3.select('#plotEffect')
+            .append("svg")
+            .attr('id', 'plotEffectSVG')
+            .attr('width', plot.width + margin.left + margin.right)
+            .attr('height', plot.height + margin.top + margin.bottom)
+            .attr('background-color', 'white')
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    }
+
+    var yTitleDim = measureText(plot.svg, "{{ g.CONF.WWW_EFFECT_Y_AXIS_TEXT }}", "y-axis-title");
+    plot.svg.append("text")
+            .attr("y", 0 - margin.top - (yTitleDim.height/2))
+            .attr("x", -(plot.height/2) - (yTitleDim.width/2))
+            .attr("transform", "rotate(-90)")
+            .text("{{ g.CONF.WWW_EFFECT_Y_AXIS_TEXT }}")
+            .attr("class", "y-axis-title");
+
+    var xTitleDim = measureText(plot.svg, "{{ g.CONF.WWW_EFFECT_X_AXIS_TEXT }}", "x-axis-title");
+    plot.svg.append("text")
+            .attr("y", plot.height + margin.bottom)
+            .attr("x", (plot.width/2) - (xTitleDim.width/2))
+            .text("{{ g.CONF.WWW_EFFECT_X_AXIS_TEXT }}")
+            .attr("class", "x-axis-title");
+
+
+
+        var legendTop = plot.svg.append("g").attr("id", "groupLegend");
+        legendTop.append("rect")
+                .attr('class', 'legend')
+                .style("fill", "#eeeeee")
+                .style("stroke-width", 1)
+                .style('stroke', 'black')
+                .style('shape-rendering', 'crispEdges')
+                .attr("x", plot.width - plot.legend.width)
+                .attr("y", 0)
+                .attr("width", plot.legend.width)
+                .attr("height", calcHeight);
+
+        var legend = legendTop.selectAll('g')
+                .data(function () {
+                    var keys = [];
+                    for (var k in plot.strainColors) {
+                        keys.push(k);
+                    }
+                    return keys;
+                })
+                .enter()
+                .append('g');
+
+        legend.append('rect')
+                .attr('id', function (d, i) {
+                    return 'rect-strain-' + d;
+                })
+                .attr('x', plot.width - plot.legend.width + plot.legend.margin)
+                .attr('y', function (d, i) {
+                    return (i * (rectSize + spacer)) + plot.legend.margin;
+                })
+                .attr('width', rectSize)
+                .attr('height', rectSize)
+                .on("click", function (d) {
+                    var strainLine = plot.svg.select("#strain-" + d);
+                    if (strainLine != null) {
+                        var opacity = strainLine.attr('opacity');
+                        //console.log('opacity=' + opacity);
+                        if (opacity == 0) {
+                            strainLine.transition()
+                                    .attr("opacity", "1")
+                                    .style("stroke-width", "2");
+                        } else {
+                            strainLine.transition()
+                                    .attr("opacity", "0")
+                                    .style("stroke-width", "10");
+
+                        }
+                    }
+
+                })
+
+        legend.append('text')
+                .attr("class", "legend-text")
+                .attr('x', plot.width - plot.legend.width + plot.legend.margin + spacer + rectSize)
+                .attr('y', function (d, i) {
+                    return (i * (rectSize + spacer)) + plot.legend.margin + rectSize;
+                })
+                .text(function (d) {
+                    return plot.strainColors[d].name;
+                });
 
 
    _PLOTS.effect = plot;
@@ -2059,63 +2171,10 @@ function initEffect() {
 {%  endif %}
 
 
-
-/**
- * Zoom function
- * - fix the scales, translate, reposition circles and axis
- */
-function zoomed() {
-    var translate = _PLOTS.matrix.zoom.translate();
-    var scale = _PLOTS.matrix.zoom.scale();
-
-    tx = Math.min(0, Math.max(_PLOTS.matrix.width * (1 - scale), translate[0]));
-    ty = Math.min(0, Math.max(_PLOTS.matrix.height * (1 - scale), translate[1]));
-
-    _PLOTS.matrix.zoom.translate([tx, ty]);
-
-    _PLOTS.matrix.svg.select(".x-axis").call(_PLOTS.matrix.xAxis);
-    _PLOTS.matrix.svg.select(".y-axis").call(_PLOTS.matrix.yAxis);
-
-    _PLOTS.matrix.chartBody.selectAll(".dot")
-        .attr("class", "dot")
-        .attr("cx", function (d) {
-            return _PLOTS.matrix.x(chrMBPToTotalBP(d[_settings.MATRIX.marker_chrom], d[_settings.MATRIX.marker_location]));
-        })
-        .attr("cy", function (d) {
-            return _PLOTS.matrix.y(chrMBPToTotalBP(d[_settings.MATRIX.feature_chrom], d[_settings.MATRIX.feature_location]));
-        })
-        .attr("r", function(d) {
-            if ($('#checkboxShow').is(':checked')) {
-
-                for (e in _PLOTS.matrix.found) {
-                    if (d[_settings.MATRIX.feature_id].toUpperCase() === _PLOTS.matrix.found[e].toUpperCase()) {
-                        return 2;
-                    }
-                }
-                return 0;
-            }  else {
-                return 2;
-            }
-        })
-        .style("opacity", function (d) {
-            var s = parseFloat(d[_settings.MATRIX.lod_score]);
-            if (s > 20) { return 1; }
-            else { return s * 5 / 100; }
-        });
-
-    _PLOTS.matrix.svg.select(".x-grid")
-        .call(_PLOTS.matrix.make_x_axis()
-        .tickSize(-_PLOTS.matrix.height, 0, 0)
-        .tickFormat(""));
-    _PLOTS.matrix.svg.select(".y-grid")
-        .call(_PLOTS.matrix.make_y_axis()
-        .tickSize(-_PLOTS.matrix.width, 0, 0)
-        .tickFormat(""));
-}
-
-
 function applyLODThreshold(lod_threshold) {
     //console.debug('lod_threshold=',lod_threshold);
+    drawMatrix(false);
+    /*
     _PLOTS.matrix.chartBodyCircles.each(function() {
 
         if (lod_threshold >= $(this)[0].__data__[_settings.MATRIX.lod_score]) {
@@ -2124,6 +2183,7 @@ function applyLODThreshold(lod_threshold) {
             $(this).show();
         }
     });
+    */
 }
 
 
@@ -2131,40 +2191,39 @@ function applyLODThreshold(lod_threshold) {
 
 function buildHistory() {
     // cookies, everywhere cookie
-    var gene_data = Cookies.getJSON("gene_data");
+    var feature_data = Cookies.getJSON("feature_data");
 
     console.log('checking history');
     if (!cookiesEnabled()) {
-        $('#gene_history_div').html("<br><span class='text-danger'>History requires that cookies are enabled in your browser.</span>");
+        $('#feature_history_div').html("<br><span class='text-danger'>History requires that cookies are enabled in your browser.</span>");
         return;
     }
 
-    if (gene_data) {
-        if (gene_data.length == 1) {
-           $('#searchHistoryStatus').html("<p class='text-right text-muted'><em><small>Showing last gene viewed</small></em></p>");
+    if (feature_data) {
+        if (feature_data.length == 1) {
+           $('#searchHistoryStatus').html("<p class='text-right text-muted'><em><small>Showing last selection</small></em></p>");
         } else {
-           $('#searchHistoryStatus').html("<p class='text-right text-muted'><em><small>Showing last " + gene_data.length.toLocaleString() + " genes viewed</small></em></p>");
+           $('#searchHistoryStatus').html("<p class='text-right text-muted'><em><small>Showing last " + feature_data.length.toLocaleString() + " selections</small></em></p>");
         }
 
         var tbl = '<table id="historyTable" class="table-condensed">';
-        tbl += '<thead><tr><th>Ensembl ID</th><th>Symbol</th><th>LOD Score</th></tr></thead>';
+        tbl += '<thead><tr><th>ID</th><th>Symbol</th><th>LOD</th><th>Location</th></tr></thead>';
         tbl += '<tbody>';
-        for (var i in gene_data) {
-        //for (var i = gene_data.length; i-- > 0; ) {
-            var gene = gene_data[i];
-            //console.log(i, gene);
+        for (var i in feature_data) {
+            var feature = feature_data[i];
             var row = '<tr>';
-            //console.log(gene);
-            row += '<td><a href="#" id="plotMe" gene_id="' + gene['id'] + '" geneSymbol="' + gene['sym'] + '" ensId="' + gene['id'] + '">' + gene['id'] + '</a></td>';
-            row += ('<td>' + gene['sym'] + '</td>');
-            row += ('<td>' + Number(gene['lod']).toFixed(4) + '</td></tr>');
+
+            row += '<td><a href="#" id="plotMe" feature_id="' + feature['id'] + '">' + feature['id'] + '</a></td>';
+            row += ('<td>' + feature['sym'] + '</td>');
+            row += ('<td>' + Number(feature['lod']).toFixed(4) + '</td>');
+            row += ('<td>' + feature['location'] + '</td></tr>');
             row += '</tr>';
             tbl += row;
         }
 
         tbl += "</tbody>";
         tbl += "</table>";
-        $('#gene_history_div').html(tbl);
+        $('#feature_history_div').html(tbl);
 
         $("#historyTable").tablesorter({
             theme: "bootstrap",
@@ -2178,14 +2237,15 @@ function buildHistory() {
 
         $("#historyTable a").click(function (e) {
             e.preventDefault();
-            console.log("e=", e);
-            console.log("this=", this);
-            $("#geneInformation").html("<a target='_newwin' href='http://www.informatics.jax.org/marker/" + $(this).attr('ensId') + "'>" + $(this).attr('geneSymbol') + '</a> (' + $(this).attr('ensId') + ')');
-            downloadLodData($(this).attr('gene_id'));
+            console.log("History Table click, this=", $(this))
+            console.log("History Table click, e=", e)
+            var feature_info = _PLOTS.matrix.ids[$(this).attr('feature_id')];
+            formatFeatureInformation(feature_info);
+            downloadLodData(feature_info[_settings.MATRIX.feature_id]);
             return false;
         });
     } else {
-        $('#gene_history_div').html("<br><span class='text-danger'>No results found.</span>");
+        $('#feature_history_div').html("<br><span class='text-danger'>No results found.</span>");
     }
 
 }
@@ -2280,14 +2340,6 @@ $().ready(function () {
 
     $("#dataset_select").change(function () {
 
-            if (_PLOTS.matrix.spinner == null) {
-                console.log('_PLOTS.matrix.spinner == null, setting spinner');
-                _PLOTS.matrix.spinner = $("#plotMatrixWrapper");
-                _PLOTS.matrix.spinner.faLoading('fa-spinner');
-
-            } else {
-                console.log('_PLOTS.matrix.spinner != null, whoa');
-            }
 
         d3.timer(function() {
         var selectedDataset = $("#dataset_select").val();
@@ -2303,8 +2355,8 @@ $().ready(function () {
             }
 
 
-            if (_G.currentGene) {
-                downloadLodData(_G.currentGene);
+            if (_G.currentFeature) {
+                downloadLodData(_G.currentFeature);
             }
 
 
@@ -2363,25 +2415,28 @@ $().ready(function () {
     });
 
     var mySlider = new Slider("#lodSlider", {
-        min: {{ g.WWW.LOD_THRESHOLD_SLIDER_MIN }},
-        max: {{ g.WWW.LOD_THRESHOLD_SLIDER_MAX }},
+        min: {{ g.CONF.WWW_LOD_THRESHOLD_SLIDER_MIN }},
+        max: {{ g.CONF.WWW_LOD_THRESHOLD_SLIDER_MAX }},
+        step: {{ g.CONF.WWW_LOD_THRESHOLD_SLIDER_STEP }},
         value: {{ lod_threshold }},
-        tooltip: 'hide',
-        tooltip_position: 'top',
-        formatter: function (e) {
-            return e.toFixed(1);
+        tooltip: 'show',
+        tooltip_position: 'top'
+    });
 
-        }
+    mySlider.on("slideStop", function(e) {
+        // use just e, which is the new slider value
+        _G.lod = e;
+        $("#currentLodScore").html(_G.lod);
+
+        applyLODThreshold(_G.lod);
+        buildDataListTable(_PLOTS.matrix.data_displayed, _G.lod);
     });
 
     mySlider.on("change", function(e) {
+        // use e.newValue, e.oldValue contains old value
         _G.lod = e.newValue;
         $("#currentLodScore").html(_G.lod);
-        applyLODThreshold(_G.lod);
-        buildDataListTable(_PLOTS.matrix.data, _G.lod);
     });
-
-
 
     {% if not render_effect_plot %}
         _PLOTS.fact.orderCount = getFactorOrder().length;
@@ -2444,39 +2499,71 @@ $().ready(function () {
 */
 
     $("#btnFactPlot").on('click', function() {
-        downloadFactData(_G.currentGene, getFactorOrder())
+        downloadFactData(_G.currentFeature, getFactorOrder())
+    });
+
+    $('#downloadFactPlot').popover({
+        trigger: 'manual',
+        placement: 'left',
+        content: "No Factorial Plot to generate"
     });
 
     $("#downloadFactPlot").on('click', function() {
-        saveSvgAsPng(document.getElementById("fact-svg-chart"), "diagramFactorialViewer.png");
+        if (_G.currentMarker) {
+            saveSvgAsPng(document.getElementById("fact-svg-chart"), "diagramFactorialViewer.png");
+        } else {
+            $('#downloadFactPlot').popover('show');
+            setTimeout(function() {
+                $('#downloadFactPlot').popover('hide');
+            }, 2000);
+        }
+        return false;
     });
 
     {%- else -%}
 
+    $('#downloadEffectPlot').popover({
+        trigger: 'manual',
+        placement: 'left',
+        content: "No Effect Plot to generate"
+    });
+
     $("#downloadEffectPlot").on('click', function() {
-        saveSvgAsPng(document.getElementById("plotEffectSVG"), "diagramEffect.png");
+        if (_G.currentMarker) {
+            saveSvgAsPng(document.getElementById("plotEffectSVG"), _G.currentMarker + "_effect.png");
+        } else {
+            $('#downloadEffectPlot').popover('show');
+            setTimeout(function() {
+                $('#downloadEffectPlot').popover('hide');
+            }, 2000);
+        }
+        return false;
     });
 
     {%- endif -%}
 
     buildHistory();
 
-
-    //d3.select(window).on('resize', resizeLOD);
-
-    //$el.faLoading(false);
-
     _G.bootstrapEnv = findBootstrapEnvironment();
-
     window.addEventListener('resize', debounceLayoutCheck);
 
-$("#downloadLODPlot").on('click', function() {
+    $('#downloadLODPlot').popover({
+        trigger: 'manual',
+        placement: 'left',
+        content: "No LOD Plot to generate"
+    });
 
-
-//saveSvgAsPng(document.getElementById("plotLODSVG"), "diagram3.png");
-      saveSvgAsPng(document.getElementById("plotLODSVG"), "diagramLOD.png");
-});
-
+    $("#downloadLODPlot").on('click', function() {
+        if (_G.currentFeature) {
+            saveSvgAsPng(document.getElementById("plotLODSVG"), _G.currentFeature + "_lod.png");
+        } else {
+            $('#downloadLODPlot').popover('show');
+            setTimeout(function() {
+                $('#downloadLODPlot').popover('hide');
+            }, 2000);
+        }
+        return false;
+    });
 
 });
 </script>

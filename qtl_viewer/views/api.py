@@ -1,13 +1,12 @@
+import os
+
 from flask import Blueprint, request, abort, jsonify, make_response, render_template, send_file, g
+import numpy as np
 
 from qtl_viewer.utils import search_utils
 from qtl_viewer.utils import data_utils
 
 mod = Blueprint('api', __name__, url_prefix='/api')
-
-import numpy as np
-
-
 
 
 RESPONSE_OK = 200
@@ -18,9 +17,6 @@ RESPONSE_NOT_FOUND = 404
 
 def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1")
-
-
-
 
 
 @mod.errorhandler(404)
@@ -41,7 +37,7 @@ def matrix(dataset=None):
     if dataset is None:
         datasets = data_utils.get_datasets()
         dataset = datasets.keys()[0]
-    filename = '../data/{}.tsv'.format(dataset)
+    filename = os.path.join(g.CONF.DATA_BASE_DIR, '{}.tsv'.format(dataset))
     print filename
     return send_file(filename)
 
@@ -136,6 +132,11 @@ def factexp(dataset, feature_id, marker_id, factors):
     return jsonify(d)
 
 
+@mod.route("/pvalue2lod", methods=['GET','POST'])
+def pvalue2lod():
+    pvalue = float(request.values.get('pvalue', None))
+    df = float(request.values.get('df', None))
+    return str(data_utils.pvalue2lod(pvalue, df))
 
 
 @mod.route("/search", methods=['GET','POST'])

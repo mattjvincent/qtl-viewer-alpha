@@ -22,11 +22,13 @@ along with this software. If not, see <http://www.gnu.org/licenses/>.
 
 from collections import OrderedDict
 import logging
+import math
 import os
 import sys
 
 import h5py
 import numpy as np
+import scipy.stats as stats
 
 log = logging.getLogger()
 log.addHandler(logging.StreamHandler())
@@ -36,6 +38,8 @@ HDF5 = None
 
 FEATURES = {}
 MARKERS = {}
+
+LOG10 = math.log(10)
 
 vstr = h5py.special_dtype(vlen=bytes)
 
@@ -179,13 +183,16 @@ def generate_matrix_file(dataset, output_file=None, delimiter='\t'):
         lods = root['lod']['lod']
         features = root['features']
         markers = root['markers']
+        has_pvalues = has_pval(dataset)
+        if has_pvalues:
+            pvals = root['lod']['pval']
 
         header = delimiter.join(["feature_id", "feature_group_id",
                                  "feature_chrom", "feature_location",
                                  "feature_name", "feature_description",
                                  "marker_id", "marker_chrom",
                                  "marker_location", "marker_name",
-                                 "marker_description","lod_score"])
+                                 "marker_description", "lod_score", "p_value"])
 
         out.write(header)
         out.write('\n')
@@ -194,12 +201,16 @@ def generate_matrix_file(dataset, output_file=None, delimiter='\t'):
             marker_idx = rec.argmax()
             m = markers[marker_idx]
             f = features[i]
+            p = ''
+            if has_pvalues:
+                p = pvals[i][marker_idx]
+
             line = [f['feature_id'], f['group_id'],
                     f['chrom'], f['location'],
                     f['name'], f['description'],
                     m['marker_id'], m['chrom'],
                     m['location'], m['name'],
-                    m['description'], max(rec)]
+                    m['description'], rec[marker_idx], p]
             out.write(delimiter.join(map(str, line)))
             out.write('\n')
 
@@ -421,7 +432,6 @@ def get_lod_data(dataset, identifier):
 
     idx = FEATURES[dataset][identifier]
     markers = h5[dataset]['markers'][()]
-    print str(markers.dtype)
 
     for i, l in enumerate(h5[dataset]['lod']['lod'][idx]):
         data.append([markers[i]['marker_id'], markers[i]['chrom'], markers[i]['location'], l])
@@ -437,6 +447,17 @@ def has_samples(dataset):
 def has_genotypes(dataset):
     h5 = get_hdf5()
     return 'genotypes' in h5[dataset]
+
+
+def has_pval(dataset):
+    h5 = get_hdf5()
+    return 'lod/pval' in h5[dataset]
+
+
+def get_max_lod(dataset):
+    #h5 = get_hdf5()
+    #return 'lod/pval' in h5[dataset]
+    raise Exception("Not yet implemented")
 
 
 def get_genotypes(dataset, marker_id=None):
@@ -499,17 +520,41 @@ def get_effect_data(dataset, identifier):
     return '\n'.join(lines)
 
 
+def pvalue2lod(pvalue, df):
+    lod = stats.chi2.ppf(1-pvalue, df) / 2 / math.log(10)
+    return lod
 
 
+def pvalue2lodtable(dataset, x_min, x_max):
+    root = get_dataset(dataset)
 
+    vals = {}
 
+    if 'dfA' not in root.attrs:
+        raise DatasetError('dfA not found in dataset /{}'.format(dataset))
+
+    if 'dfX' not in root.attrs:
+        raise DatasetError('dfX not found in dataset /{}'.format(dataset))
+
+    dfA = root.attrs['dfA']
+    dfX = root.attrs['dfX']
+
+    vals['dfA'] = {'df': dfA}
+    vals['dfX'] = {'df': dfX}
+
+    for x in xrange(x_min, x_max+1):
+        p = 10**(-1 * x)
+        vals['dfA'][x] = pvalue2lod(p, dfA)
+        vals['dfX'][x] = pvalue2lod(p, dfX)
+
+    return vals
 
 if __name__ == '__main__':
-    HDF5_FILENAME = 'data/btbr.h5'
+    HDF5_FILENAME = 'data/btbr_compression.h5'
     init()
     #h5f = h5py.File('data/new_data.h5')
     #print get_datasets()
-    generate_matrix_files()
+
     #strains = get_strains('example')
     #for s in strains:
     #    print s['strain_id'], s['name']
@@ -518,4 +563,21 @@ if __name__ == '__main__':
 
     #print get_genotypes('example', '1_2118117')
     #print get_factors_phenotypes('example', '1_2118117')
+
+
+    #generate_matrix_files()
+
+    #print has_pval('exampleB')
+    #generate_matrix_file('exampleA')
+
+    #print pvalue2lod(0.0001, 7), pvalue2lod(0.0001, 14)
+    #print pvalue2lod(0.000001, 7), pvalue2lod(0.000001, 14)
+
+    print str(pvalue2lodtable('adipose', 1, 16))
+
+
+
+
+
+
 

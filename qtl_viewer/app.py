@@ -283,6 +283,7 @@ def ws_search():
 
 
 if __name__ == "__main__":
+    """
     if len(sys.argv) == 1:
         app.config.from_pyfile('settings.cfg')
     else:
@@ -318,12 +319,8 @@ if __name__ == "__main__":
     print str(app.config)
 
     app.run(app.config['HOST'], app.config['PORT'], app.config['DEBUG'], threaded=True)
+    """
 
-    #get_lod_data('ENSMUSG00000052397')
-    #get_lod_data('ENSMUSG00000052139')
-
-    #get_effect_data('ENSMUSG00000052397')
-    #get_effect_data('ENSMUSG00000052139')
 
 
 

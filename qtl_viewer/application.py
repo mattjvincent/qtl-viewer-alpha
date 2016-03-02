@@ -27,7 +27,6 @@ from qtl_viewer.utils import search_utils
 import h5py
 
 app = Flask(__name__)
-app.config.from_object('config')
 app.register_blueprint(general.mod)
 app.register_blueprint(api.mod)
 
@@ -35,8 +34,6 @@ class Config:
     pass
 
 CONF = Config()
-
-print 'we are here'
 
 HDF_DATA = None
 R_DATA = None
@@ -72,47 +69,16 @@ def load_request():
     """
     Make sure the web and api portion have access to g.WWW
     """
-    g.WWW = app.config['WWW']
+    #g.WWW = app.config['WWW']
     g.CONF = CONF
 
 
 
 
-@app.before_first_request
-def initialize():
-    print 'Initializing'
+#@app.before_first_request
+#def initialize():
+#    print 'Initializing app on first request'
 
-    CONF.URL_BASE = app.config['URL_BASE']
-    CONF.URL_STATIC = app.config['URL_BASE_STATIC']
-    #CONF.URL_CHROMOSOME = app.config['URL_CHROMOSOME']
-    #CONF.DATA_MATRIX = app.config['DATA_MATRIX']
-    #CONF.DATA_RDATA = app.config['DATA_RDATA']
-
-    CONF.DATA_CHROMOSOMES = app.config['DATA_CHROMOSOMES']
-
-
-
-
-    HDF_FILENAME = app.config['DATA_HDF5']
-
-    #R_DATA = ro.r['load'](CONF.DATA_RDATA)
-
-
-
-    search_utils.DATABASE = app.config['SEARCH_DB']
-    data_utils.HDF5_FILENAME = app.config['DATA_HDF5']
-    data_utils.init()
-
-    if 'DEFAULT_DATASET' in app.config:
-        CONF.DEFAULT_DATASET = app.config['DEFAULT_DATASET']
-    else:
-        datasets = data_utils.get_datasets()
-        CONF.DEFAULT_DATASET = datasets.keys()[0]
-
-    print data_utils.HDF5_FILENAME
-    print CONF.DEFAULT_DATASET
-
-    print str(app.config)
 
 
 

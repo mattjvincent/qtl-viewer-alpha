@@ -337,11 +337,11 @@ def get_status(error = False, message=None):
 
 
 def get_multiplier(factor):
-    if factor.lower() == 'mb':
-        return 10000000
-    elif factor.lower() == 'm':
+    if factor.lower() in ['g', 'gb', 'gbp']:
+        return 1000000000
+    if factor.lower() in ['m', 'mb', 'mbp']:
         return 1000000
-    elif factor.lower() == 'k':
+    elif factor.lower() in ['k', 'kb', 'kbp']:
         return 1000
 
     return 1
@@ -553,7 +553,7 @@ def search(term, species_id=None, exact=True, verbose=False):
 
 if __name__ == '__main__':
     #results, status = search("CHR1:1MB-1000MB", 'Mm', False, True)
-    loc,status=str_to_location("CHR1:1MB-1000MB")
+    loc,status=str_to_location("CHR1:10MB-11MB")
     print loc
 
 
